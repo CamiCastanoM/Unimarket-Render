@@ -1,0 +1,51 @@
+UNIMARKET - FASE 4
+Render + Wompi + correo real + Google Login
+
+1) Ejecuta en phpMyAdmin:
+   migracion_fase4_pagos_notificaciones_render.sql
+
+2) En local XAMPP puedes seguir usando:
+   http://localhost/unimarket_app/vista/MAQUETA-CAMILA/index.php
+
+3) Variables de entorno para Render:
+   APP_URL=https://TU_APP.onrender.com/unimarket_app
+   DB_HOST=...
+   DB_PORT=3306
+   DB_NAME=unimarket
+   DB_USER=...
+   DB_PASS=...
+
+4) Wompi sandbox:
+   WOMPI_ENABLED=true
+   WOMPI_ENV=sandbox
+   WOMPI_PUBLIC_KEY=pub_test_...
+   WOMPI_PRIVATE_KEY=prv_test_...
+   WOMPI_INTEGRITY_SECRET=test_integrity_... o el secreto de integridad que entregue Wompi
+   WOMPI_EVENTS_SECRET=...
+
+   URL de retorno configurada automáticamente desde APP_URL:
+   https://TU_APP.onrender.com/unimarket_app/controlador/PagoController.php?accion=retorno
+
+   Webhook para Wompi:
+   https://TU_APP.onrender.com/unimarket_app/controlador/PagoController.php?accion=webhook
+
+5) Google Login:
+   GOOGLE_CLIENT_ID=...
+   GOOGLE_CLIENT_SECRET=...
+   GOOGLE_REDIRECT_URI=https://TU_APP.onrender.com/unimarket_app/controlador/GoogleAuthController.php
+
+   En Google Cloud agrega también este redirect URI.
+
+6) Correo real Gmail:
+   MAIL_ENABLED=true
+   MAIL_HOST=smtp.gmail.com
+   MAIL_PORT=465
+   MAIL_ENCRYPTION=ssl
+   MAIL_USERNAME=tu_correo@gmail.com
+   MAIL_PASSWORD=contraseña_de_aplicación_de_16_dígitos
+   MAIL_FROM_EMAIL=tu_correo@gmail.com
+   MAIL_FROM_NAME=UniMarket Unimagdalena
+
+7) Importante sobre uploads en Render:
+   En plan free, los archivos subidos pueden no persistir si el servicio se reinicia.
+   Para entrega académica funciona, pero para producción conviene usar disco persistente o almacenamiento externo.
