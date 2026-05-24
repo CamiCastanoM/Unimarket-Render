@@ -21,7 +21,7 @@ switch($accion) {
             $_SESSION['flash_message'] =
                 'Debes iniciar sesión para publicar.';
 
-            header("Location: ../vista/MAQUETA-CAMILA/index.php");
+            header("Location: ../vista/MAQUETA-CAMILA/index.php?view=home");
             exit();
 
         }
