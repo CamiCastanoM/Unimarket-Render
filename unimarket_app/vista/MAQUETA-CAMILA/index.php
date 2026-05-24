@@ -1,5 +1,23 @@
 <?php
 session_start();
+require_once "../../modelo/Usuario.php";
+
+if (isset($_GET['login_user'])) {
+
+    $usuarioModel = new Usuario();
+
+    $usuario = $usuarioModel->buscarPorCorreo($_GET['login_user']);
+
+    if ($usuario) {
+
+        $_SESSION['id_usuario'] = $usuario['id_usuario'];
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['id_rol'] = $usuario['id_rol'];
+
+        header("Location: index.php");
+        exit;
+    }
+}
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
