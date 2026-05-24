@@ -51,7 +51,7 @@ if ($accion == 'login') {
         session_start();
         $_SESSION['flash_message'] = 'Correo o contraseña incorrectos.';
     }
-    header("Location: ../vista/MAQUETA-CAMILA/index.php");
+    header("Location: ../vista/MAQUETA-CAMILA/index.php?view=home&login_user=" . urlencode($usuario['id_usuario']));
     exit();
 }
 
