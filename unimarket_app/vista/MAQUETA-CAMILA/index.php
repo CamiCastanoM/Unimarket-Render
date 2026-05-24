@@ -1,4 +1,5 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,7 +8,6 @@ error_reporting(E_ALL);
 <html lang="es">
 
 <?php
-session_start();
 $isLoggedIn = isset($_SESSION['id_usuario']);
 $nombreUsuario = $isLoggedIn ? $_SESSION['nombre'] : null;
 $idRol = isset($_SESSION['id_rol']) ? $_SESSION['id_rol'] : null;
