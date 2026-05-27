@@ -26,6 +26,9 @@ if (!googleConfigValida($config)) {
 
 if ($accion === 'iniciar') {
     $state = bin2hex(random_bytes(16));
+    if (isset($_GET['rol'])) {
+        $_SESSION['google_rol'] = (int)$_GET['rol'];
+    }
     $_SESSION['google_oauth_state'] = $state;
 
     $params = [
@@ -117,9 +120,17 @@ if ($accion === 'callback') {
         } else {
             $nombre = $googleUser['name'] ?? explode('@', $googleUser['email'])[0];
             $passwordTemporal = password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT);
-            $idRolComprador = 2;
+            
+            // Rol por defecto al registrarse con Google.
+            // 2 = comprador, 1 = vendedor.
+            $idRolGoogle = isset($_SESSION['google_rol']) ? (int)$_SESSION['google_rol'] : 2;
+            if (!in_array($idRolGoogle, [1, 2])) {
+                $idRolGoogle = 2;
+            }
+            unset($_SESSION['google_rol']);
+            
             $ins = $db->prepare("INSERT INTO usuarios (nombre, correo, contraseña, id_rol, google_id, auth_provider) VALUES (?, ?, ?, ?, ?, 'google')");
-            $ins->execute([$nombre, $googleUser['email'], $passwordTemporal, $idRolComprador, $googleUser['sub']]);
+            $ins->execute([$nombre, $googleUser['email'], $passwordTemporal, $idRolGoogle, $googleUser['sub']]);
             $idNuevo = (int)$db->lastInsertId();
             $stmt = $db->prepare('SELECT * FROM usuarios WHERE id_usuario = ? LIMIT 1');
             $stmt->execute([$idNuevo]);
