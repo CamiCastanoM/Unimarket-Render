@@ -825,8 +825,10 @@ function handleNotificacionClick(id, url) {
       return;
     }
     if (url && url.startsWith('pedido/')) {
-      window.location.href = 'detalle_compra.php?id=' + encodeURIComponent(url.split('/')[1]);
-    }
+       const idPedido = encodeURIComponent(url.split('/')[1]);
+       window.location.href =
+           'index.php?view=order-detail&id=' + idPedido;
+   }
   });
 }
 
