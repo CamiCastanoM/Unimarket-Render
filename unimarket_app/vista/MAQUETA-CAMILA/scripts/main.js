@@ -827,7 +827,7 @@ function handleNotificacionClick(id, url) {
     if (url && url.startsWith('pedido/')) {
        const idPedido = encodeURIComponent(url.split('/')[1]);
        window.location.href =
-           'index.php?view=order-detail&id=' + idPedido;
+           'index.php?view=profile&tab=pedidos&id=' + idPedido;
    }
   });
 }
