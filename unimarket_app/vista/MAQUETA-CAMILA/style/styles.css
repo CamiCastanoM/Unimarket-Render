@@ -695,7 +695,7 @@ textarea.form-input { resize: vertical; min-height: 100px; line-height: 1.55; }
 .overlay {
     background:
       linear-gradient(rgba(0, 35, 75, 0.78), rgba(0, 35, 75, 0.78)),
-      url('../uploads/unimarket-loggin.jpeg');
+      url('./uploads/unimarket-loggin.jpeg');
 
     background-size: cover;
     background-position: center;
