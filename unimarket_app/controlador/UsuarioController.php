@@ -30,28 +30,26 @@ if ($accion == 'registrar') {
 
 // login
 if ($accion == 'login') {
+    session_start();
+
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
 
-    // Buscamos el correo en la base de datos
     $usuario = $usuarioModel->buscarPorCorreo($correo);
-    
-    // Verificamos si el usuario existe y si la contraseña coincide con la encriptada (password_verify)
-    if ($usuario && password_verify($contrasena, $usuario['contraseña'])) {
 
-        // Iniciamos la sesión para recordar quién entró
-        session_start();
+    if ($usuario && password_verify($contrasena, $usuario['contraseña'])) {
         $_SESSION['id_usuario'] = $usuario['id_usuario'];
-        $_SESSION['nombre']     = $usuario['nombre'];
-        $_SESSION['id_rol']     = $usuario['id_rol'];
-        $_SESSION['correo']     = $usuario['correo'];
-        
+        $_SESSION['nombre'] = $usuario['nombre'];
+        $_SESSION['id_rol'] = $usuario['id_rol'];
+        $_SESSION['correo'] = $usuario['correo'];
         $_SESSION['flash_message'] = '¡Bienvenida/o a UniMarket, ' . $usuario['nombre'] . '!';
-    } else {
-        session_start();
-        $_SESSION['flash_message'] = 'Correo o contraseña incorrectos.';
+
+        header("Location: ../vista/MAQUETA-CAMILA/index.php?view=home");
+        exit();
     }
-    header("Location: ../vista/MAQUETA-CAMILA/index.php?view=home&login_user=" . urlencode($usuario['id_usuario']));
+
+    $_SESSION['flash_message'] = 'Correo o contraseña incorrectos.';
+    header("Location: ../vista/MAQUETA-CAMILA/index.php?view=auth");
     exit();
 }
 
