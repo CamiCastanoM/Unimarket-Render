@@ -8,25 +8,41 @@ $usuarioModel = new Usuario();
 //registrar o login
 $accion = isset($_GET['accion']) ? $_GET['accion'] : '';
 
+
 //registro
 if ($accion == 'registrar') {
+
+    session_start();
+
     $nombre = $_POST['nombre'];
     $correo = $_POST['correo'];
     $contrasena = $_POST['contrasena'];
     $id_rol = $_POST['id_rol'];
 
+    $existe = $usuarioModel->buscarPorCorreo($correo);
+
+    if ($existe) {
+        $_SESSION['flash_type'] = 'error';
+        $_SESSION['flash_message'] = 'Ese correo ya está ocupado.';
+        header("Location: ../vista/MAQUETA-CAMILA/index.php?view=auth");
+        exit();
+    }
+
     // Le pedimos al modelo que lo guarde
     if ($usuarioModel->registrar($nombre, $correo, $contrasena, $id_rol)) {
-        session_start();
+
+        $_SESSION['flash_type'] = 'success';
         $_SESSION['flash_message'] = '¡Registro exitoso! Ya puedes iniciar sesión.';
+
     } else {
-        session_start();
+
+        $_SESSION['flash_type'] = 'error';
         $_SESSION['flash_message'] = 'Hubo un error al registrar.';
     }
-    header("Location: ../vista/MAQUETA-CAMILA/index.php");
+
+    header("Location: ../vista/MAQUETA-CAMILA/index.php?view=auth");
     exit();
 }
-
 
 // login
 if ($accion == 'login') {
