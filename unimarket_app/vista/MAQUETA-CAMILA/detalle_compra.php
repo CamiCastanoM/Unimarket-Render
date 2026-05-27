@@ -29,11 +29,11 @@ $punto = $detalleCompra[0]['punto_entrega'] ?? 'Pendiente';
 $referencia = $detalleCompra[0]['referencia'] ?? '';
 $metodoPago = $detalleCompra[0]['metodo_pago'] ?? 'Pago contra entrega';
 $estadoPago = $detalleCompra[0]['estado_pago'] ?? 'No aplica';
+$pasarela = $detalleCompra[0]['pasarela'] ?? 'local';
 if (stripos($metodoPago, 'wompi') === false && $pasarela !== 'wompi') {
     $estadoPago = 'No aplica';
 }
 $referenciaPago = $detalleCompra[0]['referencia_pago'] ?? null;
-$pasarela = $detalleCompra[0]['pasarela'] ?? 'local';
 ?>
 
 <!DOCTYPE html>
